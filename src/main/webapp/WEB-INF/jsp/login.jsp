@@ -46,11 +46,11 @@
 			<span>&copy;SIAS</span>
 		</div>
 	</div>
-	<script src=" assets/libs/jquery-1.12.4/jquery.min.js"></script>
-	<script src=" assets/libs/particles/particles.min.js"></script>
-	<script src=" assets/libs/particles/js/app.js"></script>
-	<!-- <script src=" assets/libs/particles/js/lib/stats.js"></script> -->
-	<script>
+	<script src="assets/libs/jquery-1.12.4/jquery.min.js"></script>
+	<script src="assets/libs/particles/particles.min.js"></script>
+	<script src="assets/libs/particles/js/app.js"></script>
+	<script src="assets/libs/particles/js/lib/stats.js"></script>
+	<%--<script>
 		var count_particles, stats, update;
 		stats = new Stats;
 		stats.setMode(0);
@@ -68,7 +68,7 @@
 			requestAnimationFrame(update);
 		};
 		requestAnimationFrame(update);
-	</script>
+	</script>--%>
 	<script>
 		$(function(){
 		//为表单的必填文本框添加提示信息（选择form中的所有后代input元素）
