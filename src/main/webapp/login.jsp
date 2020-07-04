@@ -39,11 +39,11 @@
                     </select>
                 </li>
             </ul>
-            <button type="submit" class="submit_btn" id="btnSubmit">登陆</button>
+            <button type="submit" class="submit_btn layui-btn layui-btn-normal" id="btnSubmit">登陆</button>
         </form>
     </div>
     <div id="footer">
-        <span>&copy;SIAS</span>
+        <span>&copy;PRMS</span>
     </div>
 </div>
 <script src="assets/libs/jquery-1.12.4/jquery.min.js"></script>
@@ -90,7 +90,7 @@
         $("#btnSubmit").click(function () {
             //trigger 事件执行完后，浏览器会为submit按钮获得焦点
             $("form .required:input").trigger("blur");
-            var numError = $("form .onError").length;
+            var numError = $("form.onError").length;
             if (numError) {
                 return false;
             }
@@ -101,19 +101,19 @@
             var role = $("#role").val();
             alert(role);
             $.ajax({
-                "url": "${pageContext.request.contextPath}/login",
-                "data": {
+                url: "${pageContext.request.contextPath}/login",
+                data: {
                     "userAccount": userAccount,
                     "userPsw": userPsw,
                     "role": role
                 },
-                "type": "POST",
-                "dataType": "json",
-                "success": function (data) {
+                type: "POST",
+                dataType: "json",
+                success: function (data) {
                     if (data.flag == true) {
                         //  alert("登陆成功了")
                         if (role == '0') {
-                            window.location.href = "${pageContext.request.contextPath}/index"
+                            window.location.href = "${pageContext.request.contextPath}/news/queryAllNews"
                         } else {
                             window.location.href = "${pageContext.request.contextPath}/webIndex"
                         }

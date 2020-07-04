@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.newspublish.bean.AjaxResult;
 import com.newspublish.bean.News;
 import com.newspublish.service.NewsService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/news")
@@ -32,7 +35,7 @@ public class NewsController {
 	}
 	
 	@RequestMapping("/toEditNews")
-	public String toEditNews(@RequestParam("newsId")Integer newsId,ModelMap map) {
+	public String toEditNews(Integer newsId,ModelMap map) {
 		News news =service.queryNewsByID(newsId);
 		map.put("news", news);
 		return "editNews";
@@ -40,11 +43,7 @@ public class NewsController {
 	
 	@ResponseBody
 	@RequestMapping("/publish")
-	public AjaxResult publish(@RequestParam("title")String title,
-			@RequestParam("author")String author,
-			@RequestParam("newsType")Integer newsType,
-			@RequestParam("content")String content) {
-		
+	public AjaxResult publish(String title,String author,Integer newsType,String content) {
 		AjaxResult result = new AjaxResult();
 		News news = new News(title,author,newsType,content);
 		service.publish(result,news);
@@ -53,10 +52,7 @@ public class NewsController {
 	
 	@ResponseBody
 	@RequestMapping("/updateNews")
-	public AjaxResult updateNews(
-			@RequestParam("newsId")Integer newsId,
-			@RequestParam("title")String title,
-			@RequestParam("author")String author,
+	public AjaxResult updateNews(Integer newsId,String title,String author,
 			@RequestParam("newsType")Integer newsType,
 			@RequestParam("content")String content) {
 		
@@ -73,29 +69,34 @@ public class NewsController {
 	
 	@ResponseBody
 	@RequestMapping("/queryAllNews")
-	public AjaxResult queryAllNews() {
-		
+	public AjaxResult queryAllNews(HttpServletRequest request) {
+
 		AjaxResult result = new AjaxResult();
 		HashMap<String,Object> map = new HashMap<String,Object>();
-		List<News> allNews = service.queryAllNews();
+        List<News> allNews = service.queryAllNews();
 		map.put("allNews",allNews);
-		
 		//查询所有条数
 		int total = service.queryNewsCount();
+		request.setAttribute("total",total);
 		map.put("total", total);
 		result.setDatas(map);
 		return result;
 	}
-	
-	/*@ResponseBody
-	@RequestMapping("/queryNewsByID")
-	public AjaxResult queryNewsByID(@RequestParam("newsId") Integer newsId) {
-		AjaxResult result = new AjaxResult();
-		News news =service.queryNewsByID(newsId);
-		result.setDatas(news);
-		return result;
+
+    @RequestMapping("/index")
+    public String index(HttpServletRequest request) {
+        List<News> allNews = service.queryAllNews();
+        request.setAttribute("allNews",allNews);
+        return "index";
+    }
+
+	@RequestMapping("/findByValue")
+	public String findByValue(HttpServletRequest request,Integer Value) {
+        List<News> allNews = service.findByValue(Value);
+		request.setAttribute("allNews",allNews);
+		return "index";
 	}
-	*/
+
 	@ResponseBody
 	@RequestMapping("/deleteNews")
 	public AjaxResult deleteNews(@RequestParam("newsId") Integer newsId) {

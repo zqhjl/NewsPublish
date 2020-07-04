@@ -36,11 +36,12 @@
                 <input type="password" placeholder="密码(不少于6位)" class="psd required" id="psd"/>
             </li>
         </ul>
-        <button type="submit" class="submit_btn" id="btnSubmit" onclick="sendSubmit()">注册账号</button>
+        <button type="submit" class="submit_btn layui-btn layui-btn-normal" id="btnSubmit" onclick="sendSubmit()">注册账号
+        </button>
     </form>
 
     <div id="footer">
-        <span>&copy;SIAS</span>
+        <span>&copy;PRMS</span>
     </div>
 </div>
 <script src="assets/libs/jquery-1.12.4/jquery.min.js"></script>
@@ -109,22 +110,22 @@
             var userPsw = $("#psd").val();
             alert(userName + ":" + userAccount + ":" + userPsw);
             $.ajax({
-                "url": "${pageContext.request.contextPath}/register",
-                "data": {
+                url: "${pageContext.request.contextPath}/register",
+                data: {
                     "userName": userName,
                     "userAccount": userAccount,
                     "userPsw": userPsw
                 },
                 dataType: 'json',
-                "type": "POST",
-                "success": function (data) {
+                type: "POST",
+                success: function (data) {
                     if (data.flag) {
                         window.location.href = "toLogin";
                     } else {
                         alert(data.message);
                     }
                 },
-                "error": function (jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {
                     /*jqXHR对象的信息*/
                     console.log('jqXHR.responseText --> ', jqXHR.responseText);
                     console.log('jqXHR.status --> ', jqXHR.status);

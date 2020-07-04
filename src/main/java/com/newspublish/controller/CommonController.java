@@ -2,8 +2,10 @@ package com.newspublish.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.newspublish.bean.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.newspublish.bean.AjaxResult;
 import com.newspublish.bean.User;
 import com.newspublish.service.UserService;
+
+import java.util.List;
 
 @Controller
 public class CommonController {
@@ -24,6 +28,7 @@ public class CommonController {
     }
 
     @ResponseBody
+    /*@RequestMapping("/login")*/
     @RequestMapping("/login")
     public AjaxResult login(String role,String userAccount,String userPsw,HttpServletRequest request) {
         AjaxResult result = new AjaxResult();
@@ -38,12 +43,7 @@ public class CommonController {
 
     @ResponseBody
     @RequestMapping("/register")
-    public AjaxResult register(
-            @RequestParam("userName") String userName,
-            @RequestParam("userAccount") String userAccount,
-            @RequestParam("userPsw") String userPsw,
-            HttpServletRequest request
-    ) {
+    public AjaxResult register(String userName,String userAccount,String userPsw,HttpServletRequest request) {
         AjaxResult result = new AjaxResult();
         User user = new User(userName, userAccount, userPsw);
         userService.registerUser(user);

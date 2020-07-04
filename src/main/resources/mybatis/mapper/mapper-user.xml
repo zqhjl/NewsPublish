@@ -1,67 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newspublish.dao.UserDao">
-	
-		<resultMap id="BaseResultMap" type="com.newspublish.bean.User">
-	        <id column="id" jdbcType="INTEGER" property="id"/>
-	        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
-	        <result column="user_account" jdbcType="VARCHAR" property="userAccount"/>
-	        <result column="user_psw" jdbcType="VARCHAR" property="userPsw"/>
-	        <result column="role" jdbcType="CHAR" property="role"/>
-        </resultMap>
-    <!-- <resultMap id="BaseResultMap" type="com.xian.entity.admin.User">
+
+    <resultMap id="BaseResultMap" type="com.newspublish.bean.User">
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
-        <result column="username" jdbcType="VARCHAR" property="username"/>
-        <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
-        <result column="department_id" jdbcType="INTEGER" property="departmentId"/>
-        
-            一对一关联:
-            property 表示User实体中的属性名,
-            column表示传入关联的条件, 如果查询多个条件 column="{departmentId : department_id, id : id}", 对于departmentId : department_id来讲 key表示查询语句内的变量名, value 表示传入的值
-            javaType 表示映射到pojo,
-            select表示查询的语句，可以查询其他的地方的属性
-       
-        <association property="department" column="department_id" javaType="com.xian.entity.admin.Department" select="getDepartment"/>
-        
-            一对多关联:
-            property  表示User实体中的属性名,
-            ofType 表示映射到list集合属性中的pojo类型, 
-            column 表示查询的条件,
-            select 表示查询的语句, 可以使用com.xian.mapper.admin.UserMapper.getRoleList
-           
-        <collection property="roleList" ofType="com.xian.entity.admin.Role" column="id" select="getRoleList"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_account" jdbcType="VARCHAR" property="userAccount"/>
+        <result column="user_psw" jdbcType="VARCHAR" property="userPsw"/>
+        <result column="role" jdbcType="CHAR" property="role"/>
     </resultMap>
-    
-    
-    <select id="getDepartment" parameterType="java.lang.Integer" resultType="com.xian.entity.admin.Department">
-  	  SELECT * FROM admin_department WHERE id=#{department_id}
-    </select>
 
-    <select id="getRoleList" parameterType="java.lang.Integer" resultType="com.xian.entity.admin.Role">
-  	SELECT * FROM admin_role where id in (SELECT role_id FROM admin_user_role WHERE user_id=#{id})
-  </select>
-
-    <sql id="Base_Column_List">
-        id, nickname, username, password, email, telephone, department_id
-    </sql>
-    <select id="listUser" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from admin_user
-    </select> -->
-    
- 	<select id="queryUser"  resultMap="BaseResultMap">
+    <select id="queryUser" resultMap="BaseResultMap">
   	  SELECT * FROM user where user_account=#{userAccount} and user_psw=#{userPsw} and role=#{role}
     </select>
-    
+
     <insert id="insertUser" parameterType="com.newspublish.bean.User">
     	insert into user(user_name,user_account,user_psw,role) values(#{userName},#{userAccount},#{userPsw},#{role});
     </insert>
-    
-    <update id="updateUser" >
+
+    <update id="updateUser">
     	update user set user_name=#{userName},user_psw=#{userPsw} where id =#{id}
     </update>
 </mapper>

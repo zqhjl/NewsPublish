@@ -17,6 +17,8 @@ public interface NewsDao {
 
 	News queryNewsByID(Integer newsId);
 
+	List<News> findByValue(Integer value);
+
 	void updateNews(News news);
 
 	void deleteNews(Integer newsId);

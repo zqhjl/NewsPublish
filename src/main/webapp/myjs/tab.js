@@ -1,5 +1,5 @@
-layui.use(['element'], function(){
-	var element = layui.element;
+layui.use(['element'], function () {
+    var element = layui.element;
     // var layer = layui.layer;
     var $ = layui.$;
     // 配置tab实践在下面无法获取到菜单元素
@@ -47,8 +47,9 @@ layui.use(['element'], function(){
             element.tabDelete("demo", id);//删除
         }
     };
+
     function FrameWH() {
         var h = $(window).height();
-        $("iframe").css("height",h+"px");
+        $("iframe").css("height", h + "px");
     }
 }); 	

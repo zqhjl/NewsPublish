@@ -7,10 +7,10 @@ import com.newspublish.bean.User;
 
 public interface UserService {
 
-	void registerUser(User user);
+    void registerUser(User user);
 
-	void login(HttpServletRequest request, String role, AjaxResult result, String userAccount, String userPsw);
+    void login(HttpServletRequest request, String role, AjaxResult result, String userAccount, String userPsw);
 
-	void editUser(AjaxResult result,Integer id, String userName, String userPsw);
+    void editUser(AjaxResult result, Integer id, String userName, String userPsw);
 
 }

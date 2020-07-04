@@ -1,0 +1,54 @@
+.inedex-container {
+    margin: 0 auto;
+    padding-top: 50px;
+    position: relative;
+    width: 75%;
+    min-width: 600px;
+    height: 1500px;
+    background-color: transparent;
+}
+
+/*.layui-nav,#show{
+    position: absolute;
+}*/
+.layui-nav {
+    width: 100%;
+    background-color: #0f88eb;
+}
+
+.layui-layout-right {
+    margin-right: 20px;
+}
+
+.titlefloat {
+    float: left;
+}
+
+#particles-js {
+    height: 2000px;
+    background-color: #f7fafc;
+}
+
+.layui-card-footer {
+    height: 20px;
+    font-size: 12px;
+    background-color: snow;
+}
+
+.title {
+    font-family: "Microsoft YaHei";
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.content {
+    font-size: 16px;
+    font-family: "Microsoft YaHei";
+    font-weight: lighter;
+    text-align: left;
+}
+
+.layui-icon {
+    font-size: 10px;
+}

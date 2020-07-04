@@ -26,6 +26,10 @@
     <select id="queryNewsByID" parameterType="INTEGER" resultMap="BaseResultMap">
     	select * from news where news_id=#{newsId} ;
     </select>
+
+    <select id="findByValue" parameterType="INTEGER" resultMap="BaseResultMap">
+    	select * from news where news_type=#{value} ;
+    </select>
     
     <select id="queryNewsCount" resultType="int">
     	select count(*) from news;

@@ -11,6 +11,7 @@ public interface NewsService {
 	List<News> queryAllNews();
 	int queryNewsCount();
 	News queryNewsByID(Integer newsId);
+	List<News> findByValue(Integer value);
 	void updateNews(AjaxResult result, News news);
 	void deleteNews(AjaxResult result,Integer newsId);
 }

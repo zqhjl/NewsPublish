@@ -8,10 +8,10 @@ import com.newspublish.bean.User;
 @Repository
 public interface UserDao {
 
-	void insertUser(User user);
+    void insertUser(User user);
 
-	User queryUser(@Param("userAccount")String userAccount, @Param("userPsw") String userPsw, @Param("role") String role);
+    User queryUser(@Param("userAccount") String userAccount, @Param("userPsw") String userPsw, @Param("role") String role);
 
-	void updateUser(@Param("id")Integer id,@Param("userName") String userName,@Param("userPsw")String userPsw);
+    void updateUser(@Param("id") Integer id, @Param("userName") String userName, @Param("userPsw") String userPsw);
 
 }
