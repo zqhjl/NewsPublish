@@ -84,18 +84,28 @@ public class NewsController {
 	}
 
     @RequestMapping("/index")
-    public String index(HttpServletRequest request) {
-        List<News> allNews = service.queryAllNews();
-        request.setAttribute("allNews",allNews);
+    public String index(HttpServletRequest request,Integer page) {
+        if (page==null){
+        	page=0;
+		}
+		List<News> allNews = service.queryAllNews();
+        List<News> thisPageNews=allNews.subList(page*4,page*4+4);
+        request.setAttribute("allNews",thisPageNews);
 		request.setAttribute("value",-1);
+		request.setAttribute("page",page);
         return "index";
     }
 
 	@RequestMapping("/findByValue")
-	public String findByValue(HttpServletRequest request,Integer value) {
+	public String findByValue(HttpServletRequest request,Integer value,Integer page) {
+		if (page==null){
+			page=0;
+		}
         List<News> allNews = service.findByValue(value);
-		request.setAttribute("allNews",allNews);
-		request.setAttribute("value",value);
+		List<News> thisPageNews=allNews.subList(page*4,page*4+4);
+		request.setAttribute("allNews",thisPageNews);
+		request.setAttribute("value",-1);
+		request.setAttribute("page",page);
 		return "index";
 	}
 

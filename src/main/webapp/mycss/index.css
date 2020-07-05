@@ -48,9 +48,15 @@
 }
 
 #show{
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 .layui-icon {
     font-size: 10px;
+}
+
+.pagelist{
+    padding-left: 20px;
+    padding-top: 20px;
+    font-family: 'Microsoft YaHei';
 }
