@@ -23,11 +23,12 @@
 }
 
 #particles-js {
-    height: 2000px;
+    height: 3500px;
     background-color: #f7fafc;
 }
 
 .layui-card-footer {
+    padding-left: 10px;
     height: 20px;
     font-size: 12px;
     background-color: snow;
@@ -35,6 +36,8 @@
 
 .title {
     font-family: "Microsoft YaHei";
+    height: 50px;
+    line-height: 50px;
     font-size: 22px;
     font-weight: bold;
     text-align: left;
@@ -42,6 +45,7 @@
 
 .content {
     font-size: 16px;
+    padding: 35px;
     font-family: "Microsoft YaHei";
     font-weight: lighter;
     text-align: left;
@@ -53,4 +57,23 @@
 
 .layui-icon {
     font-size: 10px;
+}
+
+.nav-a:hover{
+    text-decoration: none;
+}
+
+.pageSelect{
+    margin-top: 20px;
+    padding-left: 20px;
+}
+
+.news-img{
+    padding-top: 20px;
+    height: 270px;
+}
+.img{
+    width: 100%;
+    height: 100%;
+    background-color: #D0D0D0;
 }

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/mycss/index.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
 <div id="particles-js"></div>
@@ -19,25 +20,25 @@
     <!--导航条-->
     <ul class="layui-nav layui-bg-blue">
         <li class="layui-nav-item nav">
-            <a href="${pageContext.request.contextPath}/news/index">首页</a>
+            <a href="${pageContext.request.contextPath}/news/index" class="nav-a">首页</a>
         </li>
         <li class="layui-nav-item nav0">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=0">社会新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue?value=0" class="nav-a">社会新闻</a>
         </li>
         <li class="layui-nav-item nav1">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=1">经济新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue?value=1" class="nav-a">经济新闻</a>
         </li>
         <li class="layui-nav-item nav2">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=2">科技新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue?value=2" class="nav-a">科技新闻</a>
         </li>
         <li class="layui-nav-item nav3">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=3">时政新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue?value=3" class="nav-a">时政新闻</a>
         </li>
         <li class="layui-nav-item nav4">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=4">国际新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue?value=4" class="nav-a">国际新闻</a>
         </li>
         <li class="layui-nav-item nav5">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=5">体育新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue?value=5" class="nav-a">体育新闻</a>
         </li>
         <li class="layui-nav-item layui-layout-right" lay-unselect>
             <a href="javascript:"><img src="//t.cn/RCzsdCq" class="layui-nav-img" alt="">
@@ -77,10 +78,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="news-img layui-col-md-3 layui-col-md-offset9">
+                    <div class="img"></div>
+                </div>
             </div>
         </c:forEach>
     </div>
-    <h1 id="test" style="display: none">${value}</h1>
+    <nav aria-label="Page navigation example" class="pageSelect">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+    <h1 id="test" style="display: none;">${value}</h1>
 </div>
 </body>
 <script src="${pageContext.request.contextPath}/assets/libs/jquery-1.12.4/jquery.min.js"></script>
@@ -89,5 +102,8 @@
 <script src="${pageContext.request.contextPath}/assets/libs/particles/js/app.js"></script>
 <script src="${pageContext.request.contextPath}/assets/libs/particles/js/lib/stats.js"></script>
 <script src="${pageContext.request.contextPath}/myjs/inedex.js"></script>
-
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </html>
