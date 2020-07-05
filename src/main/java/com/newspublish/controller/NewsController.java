@@ -87,13 +87,15 @@ public class NewsController {
     public String index(HttpServletRequest request) {
         List<News> allNews = service.queryAllNews();
         request.setAttribute("allNews",allNews);
+		request.setAttribute("value",-1);
         return "index";
     }
 
 	@RequestMapping("/findByValue")
-	public String findByValue(HttpServletRequest request,Integer Value) {
-        List<News> allNews = service.findByValue(Value);
+	public String findByValue(HttpServletRequest request,Integer value) {
+        List<News> allNews = service.findByValue(value);
 		request.setAttribute("allNews",allNews);
+		request.setAttribute("value",value);
 		return "index";
 	}
 

@@ -28,7 +28,6 @@ public class CommonController {
     }
 
     @ResponseBody
-    /*@RequestMapping("/login")*/
     @RequestMapping("/login")
     public AjaxResult login(String role,String userAccount,String userPsw,HttpServletRequest request) {
         AjaxResult result = new AjaxResult();
