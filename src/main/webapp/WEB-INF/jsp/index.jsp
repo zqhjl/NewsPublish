@@ -1,3 +1,7 @@
+<%@ page import="com.newspublish.bean.News" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.regex.Matcher" %>
+<%@ page import="java.util.regex.Pattern" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -46,57 +50,95 @@
                 ${user.userName}
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="${pageContext.request.contextPath}/user/toEditUser" id="editUser" class="nav-a">修改个人信息</a></dd>
+                <dd><a href="${pageContext.request.contextPath}/user/toEditUser" id="editUser" class="nav-a">修改个人信息</a>
+                </dd>
                 <dd><a href="${pageContext.request.contextPath}/user/loginOut" id="loginOut" class="nav-a">退了</a></dd>
             </dl>
         </li>
     </ul>
 
     <div id="show">
-        <c:forEach items="${thisPageNews}" var="n">
-            <div class="layui-row">
-                <div class="layui-col-md8 layui-card" style="margin: 20px;">
-                    <a href="#" class="news-card">
-                        <div class="layui-col-md12 layui-card-header title">${n.title}</div>
-                        <div class="layui-col-md12 layui-card-body content" style="color: #777777">
-                            <c:set var="content" value="${n.content}"></c:set>
-                            <c:if test="${content.length()<=250}">
-                                ${content}
-                            </c:if>
-                            <c:if test="${content.length()>250}">
-                                ${content.substring(0,250)}
-                            </c:if>
-                            ...
-                        </div>
-                        <div class="layui-card-footer layui-row" style="color: #777777">
-                            <div class="layui-col-md3">
-                                <i class="layui-icon layui-icon-username"></i>${n.author}
-                            </div>
-                            <div class="layui-col-md3">
-                                <i class="layui-icon layui-icon-note"></i>
-                                <c:choose>
-                                    <c:when test="${n.newsType == 0}">社会新闻</c:when>
-                                    <c:when test="${n.newsType == 1}">经济新闻</c:when>
-                                    <c:when test="${n.newsType == 2}">科技新闻</c:when>
-                                    <c:when test="${n.newsType == 3}">时政新闻</c:when>
-                                    <c:when test="${n.newsType == 4}">国际新闻</c:when>
-                                    <c:when test="${n.newsType == 5}">体育新闻</c:when>
-                                </c:choose>
-                            </div>
-                            <div class="layui-col-md6">
-                                <i class="layui-icon layui-icon-vercode"></i>${n.publishTime}
-                            </div>
-                        </div>
+        <%!
+            /*String findImg(String content) {
+                int index1 = content.indexOf("<img");
+                if (index1 != -1) {
+                    String temp1 = content.substring(index1);
+                    int index2 = temp1.indexOf("src=\"");
+                    String temp2 = temp1.substring(index2);
+                    int index3 = temp2.indexOf("\"");
+                    String imgLocation = temp2.substring(0, index3);
+                    return imgLocation;
+                } else {
+                    return null;
+                }
+            }*/
 
-                    </a>
-                </div>
-                <div class="layui-col-md3 news-img">
-                    <a href="">
-                        <img src="http://www.bjd.com.cn/images/202007/06/5f027977e4b00abaf3ef9aa9.jpeg" class="img">
-                    </a>
-                </div>
+            String findBriefContent(String content) {
+                String briefContent = "";
+                for (int flag = 0, index1 = 0, index2 = content.indexOf("</p>");
+                     index2 != -1; index2 = content.indexOf("</p>", index2 + 4)) {
+                    if (flag == 2) {
+                        break;
+                    }
+                    String temp = content.substring(index1, index2 + 4);
+                    index1 = index2 + 4;
+                    if (temp.indexOf("<img") == -1) {
+                        briefContent += temp;
+                        flag++;
+                    }
+                }
+                return briefContent;
+            }
+        %>
+        <%
+            List<News> thisPageNews = (List<News>) request.getAttribute("thisPageNews");
+            for (News news : thisPageNews) {
+        %>
+        <div class="layui-row">
+            <div class="layui-col-md8 layui-card" style="margin: 20px;">
+                <a href="#" class="news-card">
+                    <div class="layui-col-md12 layui-card-header title">
+                        <%=news.getTitle()%>
+                    </div>
+                    <div class="layui-col-md12 layui-card-body content" style="color: #777777">
+                        <%
+                            String content = news.getContent();
+                            String briefContent = findBriefContent(content);
+                        %>
+                        <%=briefContent%>
+                    </div>
+                    <div class="layui-card-footer layui-row" style="color: #777777">
+                        <div class="layui-col-md3">
+                            <i class="layui-icon layui-icon-username"></i><%=news.getAuthor()%>
+                        </div>
+                        <div class="layui-col-md3">
+                            <i class="layui-icon layui-icon-note"></i>
+                            <%
+                                request.setAttribute("newsType", news.getNewsType());
+                            %>
+                            <c:choose>
+                                <c:when test="${newsType == 0}">社会新闻</c:when>
+                                <c:when test="${newsType == 1}">经济新闻</c:when>
+                                <c:when test="${newsType == 2}">科技新闻</c:when>
+                                <c:when test="${newsType == 3}">时政新闻</c:when>
+                                <c:when test="${newsType == 4}">国际新闻</c:when>
+                                <c:when test="${newsType == 5}">体育新闻</c:when>
+                            </c:choose>
+                        </div>
+                        <div class="layui-col-md6">
+                            <i class="layui-icon layui-icon-vercode"></i><%=news.getPublishTime()%>
+                        </div>
+                    </div>
+
+                </a>
             </div>
-        </c:forEach>
+            <div class="layui-col-md3 news-img">
+                <a href="">
+                    <img src="http://www.bjd.com.cn/images/202007/06/5f027977e4b00abaf3ef9aa9.jpeg" class="img">
+                </a>
+            </div>
+        </div>
+        <%}%>
     </div>
     <nav aria-label="Page navigation example" class="pageSelect">
         <ul class="pagination">
