@@ -1,7 +1,5 @@
 <%@ page import="com.newspublish.bean.News" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.regex.Matcher" %>
-<%@ page import="java.util.regex.Pattern" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -59,19 +57,17 @@
 
     <div id="show">
         <%!
-            /*String findImg(String content) {
+            String findImg(String content) {
                 int index1 = content.indexOf("<img");
                 if (index1 != -1) {
-                    String temp1 = content.substring(index1);
-                    int index2 = temp1.indexOf("src=\"");
-                    String temp2 = temp1.substring(index2);
-                    int index3 = temp2.indexOf("\"");
-                    String imgLocation = temp2.substring(0, index3);
+                    int index2 = content.indexOf("http", index1);
+                    int index3 = content.indexOf("\"", index2);
+                    String imgLocation = content.substring(index2, index3);
                     return imgLocation;
                 } else {
                     return null;
                 }
-            }*/
+            }
 
             String findBriefContent(String content) {
                 String briefContent = "";
@@ -113,16 +109,13 @@
                         </div>
                         <div class="layui-col-md3">
                             <i class="layui-icon layui-icon-note"></i>
-                            <%
-                                request.setAttribute("newsType", news.getNewsType());
-                            %>
                             <c:choose>
-                                <c:when test="${newsType == 0}">社会新闻</c:when>
-                                <c:when test="${newsType == 1}">经济新闻</c:when>
-                                <c:when test="${newsType == 2}">科技新闻</c:when>
-                                <c:when test="${newsType == 3}">时政新闻</c:when>
-                                <c:when test="${newsType == 4}">国际新闻</c:when>
-                                <c:when test="${newsType == 5}">体育新闻</c:when>
+                                <c:when test="<%=news.getNewsType()==0%>">社会新闻</c:when>
+                                <c:when test="<%=news.getNewsType()==1%>">经济新闻</c:when>
+                                <c:when test="<%=news.getNewsType()==2%>">科技新闻</c:when>
+                                <c:when test="<%=news.getNewsType()==3%>">时政新闻</c:when>
+                                <c:when test="<%=news.getNewsType()==4%>">国际新闻</c:when>
+                                <c:when test="<%=news.getNewsType()==5%>">体育新闻</c:when>
                             </c:choose>
                         </div>
                         <div class="layui-col-md6">
@@ -134,7 +127,14 @@
             </div>
             <div class="layui-col-md3 news-img">
                 <a href="">
-                    <img src="http://www.bjd.com.cn/images/202007/06/5f027977e4b00abaf3ef9aa9.jpeg" class="img">
+                    <c:choose>
+                        <c:when test="<%=findImg(content)!=null%>">
+                            <img src="<%=findImg(content)%>" class="img">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="${pageContext.request.contextPath}/assets/img/imgNone.png" class="img">
+                        </c:otherwise>
+                    </c:choose>
                 </a>
             </div>
         </div>
