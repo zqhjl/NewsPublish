@@ -1,3 +1,11 @@
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="java.security.Principal" %>
+<%@ page import="java.io.IOException" %>
+<%@ page import="java.util.Collection" %>
+<%@ page import="java.io.UnsupportedEncodingException" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.util.Locale" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -12,11 +20,12 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/mycss/index.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
 <div id="particles-js"></div>
-<div class="inedex-container">
+<div class="inedex-container layui-container layui-fluid">
     <!--导航条-->
     <ul class="layui-nav layui-bg-blue">
         <li class="layui-nav-item nav">
@@ -54,31 +63,42 @@
     <div id="show">
         <c:forEach items="${allNews}" var="n">
             <div class="layui-row">
-                <div class="layui-card layui-col-md8" style="margin: 20px;">
-                    <div class="layui-card-header title">${n.title}</div>
-                    <div class="layui-card-body content"> ${n.content} </div>
-                    <div class="layui-card-footer">
-                        <div class="layui-col-md2">
-                            <i class="layui-icon layui-icon-username"></i>&nbsp ${n.author}
+                <div class="layui-col-md8 layui-card" style="margin: 20px;">
+                    <a href="#" class="news-card">
+                        <div class="layui-col-md12 layui-card-header title">${n.title}</div>
+                        <div class="layui-col-md12 layui-card-body content" style="color: #777777">
+                            <c:set var="content" value="${n.content}"></c:set>
+                            <c:if test="${content.length()<=250}">
+                                ${content}
+                            </c:if>
+                            <c:if test="${content.length()>250}">
+                                ${content.substring(0,250)}
+                            </c:if>
+                            ...
                         </div>
-                        <div class="layui-col-md2">
-                            <i class="layui-icon layui-icon-note"></i>
-                            &nbsp
-                            <c:choose>
-                                <c:when test="${n.newsType == 0}">社会新闻</c:when>
-                                <c:when test="${n.newsType == 1}">经济新闻</c:when>
-                                <c:when test="${n.newsType == 2}">科技新闻</c:when>
-                                <c:when test="${n.newsType == 3}">时政新闻</c:when>
-                                <c:when test="${n.newsType == 4}">国际新闻</c:when>
-                                <c:when test="${n.newsType == 5}">体育新闻</c:when>
-                            </c:choose>
+                        <div class="layui-card-footer layui-row" style="color: #777777">
+                            <div class="layui-col-md3">
+                                <i class="layui-icon layui-icon-username"></i>${n.author}
+                            </div>
+                            <div class="layui-col-md3">
+                                <i class="layui-icon layui-icon-note"></i>
+                                <c:choose>
+                                    <c:when test="${n.newsType == 0}">社会新闻</c:when>
+                                    <c:when test="${n.newsType == 1}">经济新闻</c:when>
+                                    <c:when test="${n.newsType == 2}">科技新闻</c:when>
+                                    <c:when test="${n.newsType == 3}">时政新闻</c:when>
+                                    <c:when test="${n.newsType == 4}">国际新闻</c:when>
+                                    <c:when test="${n.newsType == 5}">体育新闻</c:when>
+                                </c:choose>
+                            </div>
+                            <div class="layui-col-md6">
+                                <i class="layui-icon layui-icon-vercode"></i>${n.publishTime}
+                            </div>
                         </div>
-                        <div class="layui-col-md4">
-                            <i class="layui-icon layui-icon-vercode"></i>&nbsp${n.publishTime}
-                        </div>
-                    </div>
+
+                    </a>
                 </div>
-                <div class="news-img layui-col-md-3 layui-col-md-offset9">
+                <div class="layui-col-md3 news-img">
                     <div class="img"></div>
                 </div>
             </div>
@@ -103,7 +123,13 @@
 <script src="${pageContext.request.contextPath}/assets/libs/particles/js/lib/stats.js"></script>
 <script src="${pageContext.request.contextPath}/myjs/inedex.js"></script>
 <!-- JS, Popper.js, and jQuery -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
 </html>

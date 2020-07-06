@@ -23,15 +23,15 @@
 }
 
 #particles-js {
-    height: 3500px;
+    height: 2000px;
     background-color: #f7fafc;
 }
 
 .layui-card-footer {
-    padding-left: 10px;
-    height: 20px;
+    padding-left: 20px;
+    height: auto;
     font-size: 12px;
-    background-color: snow;
+    background-color: #FFFFFF;
 }
 
 .title {
@@ -45,35 +45,44 @@
 
 .content {
     font-size: 16px;
-    padding: 35px;
+    padding: 20px;
     font-family: "Microsoft YaHei";
     font-weight: lighter;
     text-align: left;
 }
 
-#show{
-    padding-top: 30px;
+#show {
+    padding-top: 20px;
 }
 
 .layui-icon {
     font-size: 10px;
 }
 
-.nav-a:hover{
+
+.nav-a:hover, .news-card:hover {
     text-decoration: none;
 }
 
-.pageSelect{
+
+
+.pageSelect {
     margin-top: 20px;
     padding-left: 20px;
 }
 
-.news-img{
+.news-img {
     padding-top: 20px;
-    height: 270px;
+    margin-left: 20px;
+    height: 250px;
 }
-.img{
-    width: 100%;
+
+.img {
+    width: auto;
     height: 100%;
     background-color: #D0D0D0;
+}
+
+.layui-icon {
+    margin-right: 5px;
 }
