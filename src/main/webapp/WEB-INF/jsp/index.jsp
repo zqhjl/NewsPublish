@@ -1,11 +1,3 @@
-<%@ page import="java.util.Enumeration" %>
-<%@ page import="java.security.Principal" %>
-<%@ page import="java.io.IOException" %>
-<%@ page import="java.util.Collection" %>
-<%@ page import="java.io.UnsupportedEncodingException" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.io.BufferedReader" %>
-<%@ page import="java.util.Locale" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -50,12 +42,12 @@
             <a href="${pageContext.request.contextPath}/news/findByValue/5" class="nav-a">体育新闻</a>
         </li>
         <li class="layui-nav-item layui-layout-right" lay-unselect>
-            <a href="javascript:"><img src="//t.cn/RCzsdCq" class="layui-nav-img" alt="">
+            <a href="javascript:" class="nav-a"><img src="//t.cn/RCzsdCq" class="layui-nav-img" alt="">
                 ${user.userName}
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="${pageContext.request.contextPath}/user/toEditUser" id="editUser">修改个人信息</a></dd>
-                <dd><a href="${pageContext.request.contextPath}/user/loginOut" id="loginOut">退了</a></dd>
+                <dd><a href="${pageContext.request.contextPath}/user/toEditUser" id="editUser" class="nav-a">修改个人信息</a></dd>
+                <dd><a href="${pageContext.request.contextPath}/user/loginOut" id="loginOut" class="nav-a">退了</a></dd>
             </dl>
         </li>
     </ul>
@@ -99,7 +91,9 @@
                     </a>
                 </div>
                 <div class="layui-col-md3 news-img">
-                    <div class="img"></div>
+                    <a href="">
+                        <img src="http://www.bjd.com.cn/images/202007/06/5f027977e4b00abaf3ef9aa9.jpeg" class="img">
+                    </a>
                 </div>
             </div>
         </c:forEach>
@@ -112,12 +106,14 @@
             </li>
             <c:forEach var="i" begin="1" end="${pageCounts}">
                 <li class="page-item">
-                    <a class="page-link" href="${pageContext.request.contextPath}/news/${controller}/${column}/${i}">${i}</a>
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/news/${controller}/${column}/${i}">${i}</a>
                 </li>
             </c:forEach>
             <li class="page-item">
                 <a class="page-link"
-                   href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber+1}">Next</a>
+                   href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber+1}">Next
+                </a>
             </li>
         </ul>
     </nav>
