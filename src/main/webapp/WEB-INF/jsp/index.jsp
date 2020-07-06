@@ -32,22 +32,22 @@
             <a href="${pageContext.request.contextPath}/news/index" class="nav-a">首页</a>
         </li>
         <li class="layui-nav-item nav0">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=0" class="nav-a">社会新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue/0" class="nav-a">社会新闻</a>
         </li>
         <li class="layui-nav-item nav1">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=1" class="nav-a">经济新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue/1" class="nav-a">经济新闻</a>
         </li>
         <li class="layui-nav-item nav2">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=2" class="nav-a">科技新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue/2" class="nav-a">科技新闻</a>
         </li>
         <li class="layui-nav-item nav3">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=3" class="nav-a">时政新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue/3" class="nav-a">时政新闻</a>
         </li>
         <li class="layui-nav-item nav4">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=4" class="nav-a">国际新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue/4" class="nav-a">国际新闻</a>
         </li>
         <li class="layui-nav-item nav5">
-            <a href="${pageContext.request.contextPath}/news/findByValue?value=5" class="nav-a">体育新闻</a>
+            <a href="${pageContext.request.contextPath}/news/findByValue/5" class="nav-a">体育新闻</a>
         </li>
         <li class="layui-nav-item layui-layout-right" lay-unselect>
             <a href="javascript:"><img src="//t.cn/RCzsdCq" class="layui-nav-img" alt="">
@@ -61,7 +61,7 @@
     </ul>
 
     <div id="show">
-        <c:forEach items="${allNews}" var="n">
+        <c:forEach items="${thisPageNews}" var="n">
             <div class="layui-row">
                 <div class="layui-col-md8 layui-card" style="margin: 20px;">
                     <a href="#" class="news-card">
@@ -106,14 +106,22 @@
     </div>
     <nav aria-label="Page navigation example" class="pageSelect">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber-1}">Previous</a>
+            </li>
+            <c:forEach var="i" begin="1" end="${pageCounts}">
+                <li class="page-item">
+                    <a class="page-link" href="${pageContext.request.contextPath}/news/${controller}/${column}/${i}">${i}</a>
+                </li>
+            </c:forEach>
+            <li class="page-item">
+                <a class="page-link"
+                   href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber+1}">Next</a>
+            </li>
         </ul>
     </nav>
-    <h1 id="test" style="display: none;">${value}</h1>
+    <h1 id="test" style="display: none;">${column}</h1>
 </div>
 </body>
 <script src="${pageContext.request.contextPath}/assets/libs/jquery-1.12.4/jquery.min.js"></script>
