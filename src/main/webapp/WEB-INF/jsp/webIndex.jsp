@@ -12,17 +12,22 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">管理员后台</div>
-
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:">
+                    <img src="//t.cn/RCzsdCq" class="layui-nav-img" alt="">
                     ${user.userName}
                 </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="${pageContext.request.contextPath}/user/toEditUser" id="editUser">修改个人信息</a>
+                    </dd>
+                    <dd><a href="${pageContext.request.contextPath}/user/loginOut" id="loginOut">退了</a>
+                    </dd>
+                </dl>
             </li>
-            <li class="layui-nav-item"><a id="loginOut">退了</a></li>
         </ul>
+
     </div>
 
     <div class="layui-side layui-bg-black">
