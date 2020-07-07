@@ -54,9 +54,7 @@ public class NewsController {
 
     @ResponseBody
     @RequestMapping("/updateNews")
-    public AjaxResult updateNews(Integer newsId, String title, String author,
-                                 @RequestParam("newsType") Integer newsType,
-                                 @RequestParam("content") String content) {
+    public AjaxResult updateNews(Integer newsId, String title, String author, Integer newsType, String content) {
 
         AjaxResult result = new AjaxResult();
         if (newsId == null) {
@@ -137,6 +135,15 @@ public class NewsController {
             thisPageNews = allNews.subList(page * pageNewsNumber - pageNewsNumber, page * pageNewsNumber);
         }
         return thisPageNews;
+    }
+
+    @RequestMapping("/queryNewsByID/{newsId}")
+    public String queryNewsByID(HttpServletRequest request, @PathVariable(value = "newsId") Integer newsId) {
+        News thisNews = service.queryNewsByID(newsId);
+        request.setAttribute("thisNews", thisNews);
+        request.setAttribute("column", thisNews.getNewsType());
+        request.setAttribute("controller", "index");
+        return "thisNewsIndex";
     }
 
     @ResponseBody

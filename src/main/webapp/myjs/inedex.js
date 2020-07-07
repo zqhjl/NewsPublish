@@ -29,4 +29,5 @@ $(function () {
             $("title").html("新闻观世界 - 体育新闻");
             break;
     }
+    $("#particles-js").height()
 });

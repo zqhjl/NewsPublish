@@ -5,7 +5,7 @@
     width: 75%;
     height: auto;
     min-width: 600px;
-    min-height: 1500px;
+    padding-bottom: 100px;
     background-color: transparent;
 }
 
@@ -23,7 +23,7 @@
 }
 
 #particles-js {
-    height: 2000px;
+    position: fixed;
     background-color: #f7fafc;
 }
 
@@ -59,12 +59,9 @@
     font-size: 10px;
 }
 
-
 .nav-a:hover, .news-card:hover {
     text-decoration: none;
 }
-
-
 
 .pageSelect {
     margin-top: 20px;
@@ -74,7 +71,7 @@
 .news-img {
     padding-top: 20px;
     margin-left: 20px;
-    height: 250px;
+    height: auto;
 }
 
 .layui-icon {
