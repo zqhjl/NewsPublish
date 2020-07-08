@@ -1,5 +1,8 @@
 <%@ page import="com.newspublish.bean.News" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.regex.Pattern" %>
+<%@ page import="java.util.regex.Matcher" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -70,24 +73,31 @@
             }
 
             String findBriefContent(String content) {
-                String briefContent = "";
-                for (int flag = 0, index1 = 0, index2 = content.indexOf("</p>");
-                     index2 != -1; index2 = content.indexOf("</p>", index2 + 4)) {
-                    if (flag == 2) {
-                        break;
-                    }
-                    String temp = content.substring(index1, index2 + 4);
-                    index1 = index2 + 4;
-                    if (temp.indexOf("<img") == -1) {
-                        briefContent += temp;
-                        flag++;
-                    } else if (briefContent.lastIndexOf("<br>") != briefContent.length() - 8) {
-                        briefContent = briefContent.substring(0, briefContent.length() - 4) + "[图片]</p>";
+                Pattern p = Pattern.compile("<p(.*?)<");
+                Matcher m = p.matcher(content);
+                List<String> result = new ArrayList<String>();
+                while (m.find()) {
+                    String temp = m.group(1);
+                    int index = temp.indexOf(">");
+                    temp = temp.substring(index + 1);
+                    if (temp.length() == 0) {
+                        result.add("[图片]");
                     } else {
-                        briefContent = briefContent.substring(0, briefContent.length() - 8) + "[图片]</p>";
+                        result.add(temp);
                     }
                 }
-                briefContent = briefContent.lastIndexOf("<br>") == briefContent.length() - 8 ? briefContent.substring(0, briefContent.length() - 9) + "......</p>" : briefContent.substring(0, briefContent.length() - 5) + "... ...</p>";
+                String briefContent = "";
+                for (int i = 0, flag = 0; flag < 2; i++) {
+                    if (result.get(i).equals("[图片]") == false) {
+                        briefContent += "<p>" + result.get(i) + "</p>";
+                        flag++;
+                    } else if (flag != 0) {
+                        briefContent = briefContent.substring(0, briefContent.length() - 4) + "[图片]</p>";
+                    } else {
+                        continue;
+                    }
+                }
+                briefContent = briefContent.substring(0, briefContent.length() - 4) + "...</p>";
                 return briefContent;
             }
         %>
@@ -152,7 +162,7 @@
                    href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber-1}">Previous</a>
             </li>
             <c:if test="${pageNumber>2}">
-                <li class="page-item">...</li>
+                <li class="page-item"><div class="page-link">...</div></li>
             </c:if>
             <c:if test="${pageNumber>1}">
                 <li class="page-item">
@@ -171,7 +181,7 @@
                 </li>
             </c:if>
             <c:if test="${pageNumber<pageCounts-1}">
-                <li class="page-item">...</li>
+                <li class="page-item"><div class="page-link">...</div></li>
             </c:if>
             <li class="page-item">
                 <a class="page-link"
