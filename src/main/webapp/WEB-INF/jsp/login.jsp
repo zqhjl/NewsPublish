@@ -15,7 +15,7 @@
 <div id="particles-js"></div>
 <div id="wrapper">
     <div>
-        <h1 style="font-size: 44px;">新闻大事件</h1>
+        <h1 style="font-size: 44px;font-weight: bold;color: #0F88EB;">新闻大事件</h1>
         <h2>开阔世界 遇见新的知识、经验和见解</h2>
     </div>
     <nav class="switch_nav">

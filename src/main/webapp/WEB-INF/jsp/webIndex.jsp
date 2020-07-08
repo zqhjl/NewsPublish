@@ -8,10 +8,10 @@
     <title>管理员后台</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css">
 </head>
-<body class="layui-layout-body">
+<body class="layui-layout-body" style="font-family: 'Microsoft YaHei'">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">管理员后台</div>
+        <div class="layui-logo" style="font-weight: bolder">管理员后台</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item" lay-unselect>
@@ -22,7 +22,7 @@
                 <dl class="layui-nav-child">
                     <dd><a href="${pageContext.request.contextPath}/user/toEditUser" id="editUser">修改个人信息</a>
                     </dd>
-                    <dd><a href="${pageContext.request.contextPath}/user/loginOut" id="loginOut">退了</a>
+                    <dd><a href="${pageContext.request.contextPath}/user/loginOut" id="loginOut">退出</a>
                     </dd>
                 </dl>
             </li>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/mycss/wangEditor.css" media="all">
 </head>
-<body>
+<body style="font-family: 'Microsoft YaHei'">
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;font-size: 32px;">
     <legend>新闻发布</legend>
 </fieldset>
@@ -99,6 +99,7 @@
                 success: function (data1) {
                     if (data1.flag) {
                         alert("发布新闻成功！");
+                        window.location.href = "${pageContext.request.contextPath}/news/toNewsList";
                     } else {
                         alert(data1.message);
                     }

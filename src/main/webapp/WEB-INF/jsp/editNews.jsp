@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/mycss/wangEditor.css" media="all">
 </head>
-<body>
+<body style="font-family: 'Microsoft YaHei'">
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;font-size: 32px;">
     <legend>修改新闻</legend>
 </fieldset>

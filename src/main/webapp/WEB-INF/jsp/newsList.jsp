@@ -8,7 +8,7 @@
     <title>Insert title here</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css">
 </head>
-<body>
+<body style="font-family: 'Microsoft YaHei'">
 <%--<table class="layui-hide" id="test" lay-filter="test"></table>--%>
 <table id="demo" lay-filter="test"></table>
 
@@ -60,14 +60,20 @@
                 , {field: 'content', title: '文本内容'}
                 , {field: 'publishTime', title: '发布时间', width: 250, sort: true}
                 , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
-            ]],
-            page: true,
-            parseData: function (res) { //res 即为原始返回的数据
+            ]]
+            , page:true/* { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                , groups: 1 //只显示 1 个连续页码
+                , first: false //不显示首页
+                , last: false //不显示尾页
+            }*/, limit: 10
+            ,parseData: function (res) { //res 即为原始返回的数据
                 return {
                     "code": res.code, //解析接口状态
                     "msg": res.message, //解析提示文本
-                    "count": res.count, //解析数据长度
-                    "data": res.datas.allNews //解析数据列表
+                    "count": res.datas.total, //解析数据长度
+                    "data": res.datas.thisPageNews //解析数据列表
                 };
             }
         });
@@ -98,10 +104,8 @@
         //监听行工具事件
         table.on('tool(test)', function (obj) {
             var data = obj.data;
-            //console.log(obj)
             if (obj.event === 'del') {
                 layer.confirm('删除这条新闻么？', function (index) {
-
                     $.ajax({
                         "url": "${pageContext.request.contextPath}/news/deleteNews",
                         "data": {

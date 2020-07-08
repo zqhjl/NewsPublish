@@ -51,7 +51,7 @@
                 <dd>
                     <a href="${pageContext.request.contextPath}/user/toEditUser" id="editUser" class="nav-a">修改个人信息</a>
                 </dd>
-                <dd><a href="${pageContext.request.contextPath}/user/loginOut" id="loginOut" class="nav-a">退了</a></dd>
+                <dd><a href="${pageContext.request.contextPath}/user/loginOut" id="loginOut" class="nav-a">退出</a></dd>
             </dl>
         </li>
     </ul>

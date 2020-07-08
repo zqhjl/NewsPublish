@@ -31,6 +31,11 @@ public class NewsController {
         return "publishNews";
     }
 
+    @RequestMapping("/test")
+    public String test() {
+        return "test";
+    }
+
     @RequestMapping("/toNewsList")
     public String toNewsList() {
         return "newsList";
@@ -70,13 +75,15 @@ public class NewsController {
     @ResponseBody
     @RequestMapping("/queryAllNews")
     public AjaxResult queryAllNews(HttpServletRequest request) {
-
         AjaxResult result = new AjaxResult();
         HashMap<String, Object> map = new HashMap<String, Object>();
         List<News> allNews = service.queryAllNews();
-        map.put("allNews", allNews);
         //查询所有条数
         int total = service.queryNewsCount();
+        int page=Integer.parseInt(request.getParameter("page"));
+        int limit=Integer.parseInt(request.getParameter("limit"));
+        List<News> thisPageNews = newsCutting(page, allNews, total, limit);
+        map.put("thisPageNews", thisPageNews);
         request.setAttribute("total", total);
         map.put("total", total);
         result.setDatas(map);
@@ -88,14 +95,8 @@ public class NewsController {
                         @PathVariable(value = "value", required = false) Integer value,
                         @PathVariable(value = "page", required = false) Integer page) {
         List<News> allNews = service.queryAllNews();
-        Integer pageCounts = allNews.size() / pageNewsNumber + 1;
-        if (page == null || page == 0) {
-            page = 1;
-        }
-        if (page > pageCounts) {
-            page = pageCounts;
-        }
-        List<News> thisPageNews = newsCutting(page, allNews);
+        int pageCounts = allNews.size() / pageNewsNumber + 1;
+        List<News> thisPageNews = newsCutting(page, allNews, pageCounts, pageNewsNumber);
         request.setAttribute("thisPageNews", thisPageNews);
         request.setAttribute("column", -1);
         request.setAttribute("controller", "index");
@@ -111,13 +112,8 @@ public class NewsController {
 
         List<News> allNews = service.findByValue(value);
         Integer pageCounts = allNews.size() / pageNewsNumber + 1;
-        if (page == null || page == -1) {
-            page = 1;
-        }
-        if (page > pageCounts) {
-            page = pageCounts;
-        }
-        List<News> thisPageNews = newsCutting(page, allNews);
+
+        List<News> thisPageNews = newsCutting(page, allNews, pageCounts, pageNewsNumber);
 
         request.setAttribute("thisPageNews", thisPageNews);
         request.setAttribute("column", value);
@@ -127,12 +123,18 @@ public class NewsController {
         return "index";
     }
 
-    private List<News> newsCutting(Integer page, List<News> allNews) {
+    private List<News> newsCutting(Integer page, List<News> allNews, int pageCounts, int limit) {
         List<News> thisPageNews;
-        if (page * pageNewsNumber > allNews.size()) {
-            thisPageNews = allNews.subList(page * pageNewsNumber - pageNewsNumber, allNews.size());
+        if (page == null || page == -1) {
+            page = 1;
+        }
+        if (page > pageCounts) {
+            page = pageCounts;
+        }
+        if (page * limit > allNews.size()) {
+            thisPageNews = allNews.subList(page * limit - limit, allNews.size());
         } else {
-            thisPageNews = allNews.subList(page * pageNewsNumber - pageNewsNumber, page * pageNewsNumber);
+            thisPageNews = allNews.subList(page * limit - limit, page * limit);
         }
         return thisPageNews;
     }
