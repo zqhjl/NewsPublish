@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/mycss/wangEditor.css" media="all">
 </head>
-<body style="font-family: 'Microsoft YaHei'">
+<body style="font-family: 'Microsoft YaHei';height: auto">
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;font-size: 32px;">
     <legend>新闻发布</legend>
 </fieldset>

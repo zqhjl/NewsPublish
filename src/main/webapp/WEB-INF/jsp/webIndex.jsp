@@ -53,14 +53,15 @@
         </div>
     </div>
 
-    <div class="layui-body">
-        <!-- 内容主体区域 -->
+    <!-- 内容主体区域 -->
+    <div class="layui-body" style="height: auto">
         <div style="padding: 15px;">欢迎来到管理员系统</div>
         <!--  <div  class="layui-tab" lay-filter="demo" lay-allowclose="true">
             <ul class="layui-tab-title"></ul>
             <div class="layui-tab-content"></div>
         </div> -->
-        <iframe id="iframeMain" src="" style="width: 100%" height="100%"></iframe>
+        <iframe id="iframeMain" src="" style="width: 100%;height:100%;"></iframe>
+
     </div>
 
     <div class="layui-footer">
