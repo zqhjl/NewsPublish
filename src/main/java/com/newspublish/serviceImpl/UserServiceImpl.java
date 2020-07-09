@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void login(HttpServletRequest request, String role, AjaxResult result, String userAccount, String userPsw) {
+    public void login(HttpServletRequest request, AjaxResult result, String userAccount, String userPsw, String role) {
         User user = dao.queryUser(userAccount, userPsw, role);
         if (user == null) {
             result.setFlag(false);
@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editUser(AjaxResult result, Integer id, String userName, String userPsw) {
+    public void editUser(AjaxResult result, Integer id, String userAccount, String userName, String userPsw) {
         try {
-            dao.updateUser(id, userName, userPsw);
+            dao.updateUser(id, userAccount, userName, userPsw);
         } catch (Exception e) {
             result.setFlag(false);
             result.setMessage("登陆时，用户名和密码不匹配");

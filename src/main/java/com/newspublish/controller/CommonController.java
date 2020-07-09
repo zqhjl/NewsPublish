@@ -29,9 +29,9 @@ public class CommonController {
 
     @ResponseBody
     @RequestMapping("/login")
-    public AjaxResult login(String role,String userAccount,String userPsw,HttpServletRequest request) {
+    public AjaxResult login(String userAccount, String userPsw, String role, HttpServletRequest request) {
         AjaxResult result = new AjaxResult();
-        userService.login(request, role, result, userAccount, userPsw);
+        userService.login(request, result, userAccount, userPsw, role);
         return result;
     }
 
@@ -42,7 +42,7 @@ public class CommonController {
 
     @ResponseBody
     @RequestMapping("/register")
-    public AjaxResult register(String userName,String userAccount,String userPsw,HttpServletRequest request) {
+    public AjaxResult register(String userName, String userAccount, String userPsw, HttpServletRequest request) {
         AjaxResult result = new AjaxResult();
         User user = new User(userName, userAccount, userPsw);
         userService.registerUser(user);

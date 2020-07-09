@@ -29,8 +29,8 @@
                 <input type="hidden" id="id" value="${user.id}"/>
             </li>
             <li>
-                <input type="text" placeholder="账号" class="mobile required" id="mobile" value="${user.userAccount}"
-                       readonly="readonly"/>
+                <input type="text" placeholder="账号" class="mobile required" id="mobile" value="${user.userAccount}"<%--
+                       readonly="readonly"--%>/>
             </li>
             <li>
                 <input type="text" placeholder="姓名" class="name required" value="${user.userName}" id="name"/>
@@ -53,7 +53,6 @@
 <script src=" ${pageContext.request.contextPath}/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 <script src=" ${pageContext.request.contextPath}/assets/libs/particles/particles.min.js"></script>
 <script src=" ${pageContext.request.contextPath}/assets/libs/particles/js/app.js"></script>
-<!-- <script src="	assets/libs/particles/js/lib/stats.js"></script> -->
 <script>
 
     //为表单元素添加失去焦点事件
@@ -115,6 +114,7 @@
         if (numError) {
             return false;
         }
+        var userAccount = $("#mobile").val();
         var userName = $("#name").val();
         var userPsw = $("#psd").val();
         var id = $("#id").val();
@@ -122,6 +122,7 @@
             "url": "${pageContext.request.contextPath}/user/editUser",
             "data": {
                 "id": id,
+                "userAccount": userAccount,
                 "userName": userName,
                 "userPsw": userPsw
             },

@@ -19,6 +19,6 @@
     </insert>
 
     <update id="updateUser">
-    	update user set user_name=#{userName},user_psw=#{userPsw} where id =#{id}
+    	update user set user_account=#{userAccount},user_name=#{userName},user_psw=#{userPsw} where id =#{id}
     </update>
 </mapper>

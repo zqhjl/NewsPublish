@@ -30,15 +30,10 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/editUser")
-    public AjaxResult editUser(
-            @RequestParam("id") Integer id,
-            @RequestParam("userName") String userName,
-            @RequestParam("userPsw") String userPsw,
-            HttpServletRequest request
-    ) {
+    public AjaxResult editUser(HttpServletRequest request, Integer id, String userAccount, String userName, String userPsw) {
         AjaxResult result = new AjaxResult();
         HttpSession session = request.getSession();
-        service.editUser(result, id, userName, userPsw);
+        service.editUser(result, id, userAccount, userName, userPsw);
         session.removeAttribute("user");
         return result;
     }

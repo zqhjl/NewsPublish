@@ -155,39 +155,54 @@
         </div>
         <%}%>
     </div>
-    <nav aria-label="Page navigation example" class="pageSelect">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link"
-                   href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber-1}">Previous</a>
-            </li>
-            <c:if test="${pageNumber>2}">
-                <li class="page-item"><div class="page-link">...</div></li>
+    <nav aria-label="Page navigation example" class="pageSelect" style="font-family: 'Microsoft YaHei'">
+        <ul class="pagination justify-content-center">
+            <c:if test="${pageNumber==1}">
+                <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-disabled="true">首页</a></li>
+                <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-disabled="true">上一页</a></li>
             </c:if>
             <c:if test="${pageNumber>1}">
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/news/${controller}/${column}/1">首页</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber-1}">上一页</a>
+                </li>
+                <c:if test="${pageNumber>2}">
+                    <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-disabled="true">...</a></li>
+                </c:if>
                 <li class="page-item">
                     <a class="page-link"
                        href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber-1}">${pageNumber-1}</a>
                 </li>
             </c:if>
-            <li class="page-item">
-                <a class="page-link"
-                   href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber}">${pageNumber}</a>
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">${pageNumber} <span class="sr-only">(current)</span></a>
             </li>
             <c:if test="${pageNumber<pageCounts}">
                 <li class="page-item">
                     <a class="page-link"
                        href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber+1}">${pageNumber+1}</a>
                 </li>
+                <c:if test="${pageNumber<pageCounts-1}">
+                    <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-disabled="true">...</a></li>
+                </c:if>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber+1}">下一页
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link"
+                       href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageCounts}">尾页</a>
+                </li>
             </c:if>
-            <c:if test="${pageNumber<pageCounts-1}">
-                <li class="page-item"><div class="page-link">...</div></li>
+            <c:if test="${pageNumber==pageCounts}">
+                <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-disabled="true">下一页</a></li>
+                <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-disabled="true">尾页</a></li>
             </c:if>
-            <li class="page-item">
-                <a class="page-link"
-                   href="${pageContext.request.contextPath}/news/${controller}/${column}/${pageNumber+1}">Next
-                </a>
-            </li>
         </ul>
     </nav>
     <h1 id="test" style="display: none;">${column}</h1>

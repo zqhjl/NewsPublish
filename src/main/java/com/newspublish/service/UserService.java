@@ -9,8 +9,8 @@ public interface UserService {
 
     void registerUser(User user);
 
-    void login(HttpServletRequest request, String role, AjaxResult result, String userAccount, String userPsw);
+    void login(HttpServletRequest request, AjaxResult result, String userAccount, String userPsw, String role);
 
-    void editUser(AjaxResult result, Integer id, String userName, String userPsw);
+    void editUser(AjaxResult result, Integer id, String userAccount, String userName, String userPsw);
 
 }

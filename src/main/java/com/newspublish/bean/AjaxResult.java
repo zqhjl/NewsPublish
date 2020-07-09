@@ -8,5 +8,4 @@ public class AjaxResult {
     private String message;
     private Object datas;
     private int code = 0;
-
 }

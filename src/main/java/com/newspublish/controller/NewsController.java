@@ -80,9 +80,9 @@ public class NewsController {
         List<News> allNews = service.queryAllNews();
         //查询所有条数
         int total = service.queryNewsCount();
-        int page=Integer.parseInt(request.getParameter("page"));
-        int limit=Integer.parseInt(request.getParameter("limit"));
-        List<News> thisPageNews = newsCutting(page, allNews, total, limit);
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        List<News> thisPageNews = newsCutting(page, allNews, limit, request);
         map.put("thisPageNews", thisPageNews);
         request.setAttribute("total", total);
         map.put("total", total);
@@ -95,13 +95,9 @@ public class NewsController {
                         @PathVariable(value = "value", required = false) Integer value,
                         @PathVariable(value = "page", required = false) Integer page) {
         List<News> allNews = service.queryAllNews();
-        int pageCounts = allNews.size() / pageNewsNumber + 1;
-        List<News> thisPageNews = newsCutting(page, allNews, pageCounts, pageNewsNumber);
-        request.setAttribute("thisPageNews", thisPageNews);
+        List<News> thisPageNews = newsCutting(page, allNews, pageNewsNumber, request);
         request.setAttribute("column", -1);
         request.setAttribute("controller", "index");
-        request.setAttribute("pageNumber", page);
-        request.setAttribute("pageCounts", pageCounts);
         return "index";
     }
 
@@ -111,21 +107,16 @@ public class NewsController {
                               @PathVariable(value = "page", required = false) Integer page) {
 
         List<News> allNews = service.findByValue(value);
-        Integer pageCounts = allNews.size() / pageNewsNumber + 1;
-
-        List<News> thisPageNews = newsCutting(page, allNews, pageCounts, pageNewsNumber);
-
-        request.setAttribute("thisPageNews", thisPageNews);
+        List<News> thisPageNews = newsCutting(page, allNews, pageNewsNumber, request);
         request.setAttribute("column", value);
         request.setAttribute("controller", "findByValue");
-        request.setAttribute("pageNumber", page);
-        request.setAttribute("pageCounts", pageCounts);
         return "index";
     }
 
-    private List<News> newsCutting(Integer page, List<News> allNews, int pageCounts, int limit) {
+    private List<News> newsCutting(Integer page, List<News> allNews, int limit, HttpServletRequest request) {
         List<News> thisPageNews;
-        if (page == null || page == -1) {
+        int pageCounts = (allNews.size() % limit == 0) ? (allNews.size() / limit) : (allNews.size() / limit + 1);
+        if (page == null || page == 0) {
             page = 1;
         }
         if (page > pageCounts) {
@@ -136,6 +127,9 @@ public class NewsController {
         } else {
             thisPageNews = allNews.subList(page * limit - limit, page * limit);
         }
+        request.setAttribute("thisPageNews", thisPageNews);
+        request.setAttribute("pageNumber", page);
+        request.setAttribute("pageCounts", pageCounts);
         return thisPageNews;
     }
 
